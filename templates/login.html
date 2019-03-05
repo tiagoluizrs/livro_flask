@@ -1,0 +1,29 @@
+{% extends "bootstrap/base.html" %}
+{% block title %}Login{% endblock %}
+
+{% block styles %}
+{{super()}}
+<link rel="stylesheet" href="{{url_for('.static', filename='css/custom.css')}}">
+{% endblock %}
+
+{% block content %}
+  <form class="form-signin text-center" action="/login/" method="post">
+	<img class="mb-4" src="https://getbootstrap.com/docs/4.0/assets/brand/bootstrap-solid.svg" alt="" width="72" height="72">
+	<h1 class="h3 mb-3 font-weight-normal">Login</h1>
+	<h2>{{message}}</h2>
+	<div class="checkbox mb-3">
+        <label for="inputEmail" class="sr-only">E-mail</label>
+        <input type="email" id="inputEmail" class="form-control" placeholder="E-mail" required autofocus>
+    </div>
+    <div class="checkbox mb-3">
+	    <label for="inputPassword" class="sr-only">Senha</label>
+		<input type="password" id="inputPassword" class="form-control" placeholder="Senha" required>
+	</div>
+	<button class="btn btn-lg btn-primary btn-block" type="submit">Entrar</button>
+  </form>
+{% endblock %}
+
+{% block scripts %}
+{{super()}}
+<script src="{{url_for('.static', filename='js/custom.js')}}"></script>
+{% endblock %}

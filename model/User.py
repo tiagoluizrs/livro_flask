@@ -1,7 +1,11 @@
 # -*- coding: utf-8 -*-
 from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy import func
+from sqlalchemy.orm import relationship
 from config import app_active, app_config
 from passlib.hash import pbkdf2_sha256
+
+from model.Role import Role
 
 config = app_config[app_active]
 db = SQLAlchemy(config.APP)
@@ -12,9 +16,11 @@ class User(db.Model):
     email = db.Column(db.String(120), unique=True, nullable=False)
     password = db.Column(db.String(200), nullable=False)
     date_created = db.Column(db.DateTime(6), default=db.func.current_timestamp(), nullable=False)
-    last_update = db.Column(db.DateTime(6), onupdate=db.func.current_timestamp(), nullable=False)
-    status = db.Column(db.Boolean(), default=1, nullable=False)
-
+    last_update = db.Column(db.DateTime(6), onupdate=db.func.current_timestamp(), nullable=True)
+    status = db.Column(db.Boolean(), default=1, nullable=True)
+    role = db.Column(db.Integer, db.ForeignKey(Role.id), nullable=False)
+    funcao = relationship(Role)
+    
     def __repr__(self):
         return '%s - %s' % (self.id, self.username)
 
@@ -78,3 +84,13 @@ class User(db.Model):
             return pbkdf2_sha256.verify(password, password_database)
         except ValueError:
             return False
+
+    def get_total_users(self):
+        try:
+            res = db.session.query(func.count(User.id)).first()
+        except Exception as e:
+            res = []
+            print(e)
+        finally:
+            db.session.close()
+            return res
