@@ -24,19 +24,26 @@ class User(db.Model):
     def __repr__(self):
         return '%s - %s' % (self.id, self.username)
 
+    # Não adicionar no capítulo 9
     def get_user_by_email(self):
         try:
-            return User.query.filter(User.email==self.email).first()
+            res = db.session.query(User).filter(User.email==self.email).first()
         except Exception as e:
-            print("Erro ao listar o usuário.")
-            return []
+            res = []
+            print(e)
+        finally:
+            db.session.close()
+            return res
 
     def get_user_by_id(self):
         try:
-            return User.query.filter(User.id==self.id).first()
+            res = db.session.query(User).filter(User.id==self.id).first()
         except Exception as e:
-            print("Erro ao listar o usuário.")
-            return []
+            res = []
+            print(e)
+        finally:
+            db.session.close()
+            return res
 
     def get_users(self):
         try:

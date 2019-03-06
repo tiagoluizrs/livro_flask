@@ -22,3 +22,27 @@ class UserController():
         A recuperação de e-mail será criada no capítulo 12. Trabalhando com serviços de e-mail
         """
         return ''
+
+    def get_user_by_id(self, user_id):    
+        result = {}
+        try:
+            self.user_model.id = user_id
+            res = self.user_model.get_user_by_id()
+            result = {
+                'id': res.id,
+                'name': res.username,
+                'email': res.email,
+                'date_created': res.date_created
+            }
+
+            status = 200
+
+        except Exception as e:
+            print(e)
+            result = []
+            status = 400
+        finally:
+            return {
+                'result': result,
+                'status': status
+            }

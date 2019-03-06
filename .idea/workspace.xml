@@ -1,25 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="9189e4c1-48e6-4397-a1fd-6d04df143085" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/static/css/login.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/admin/Admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/admin/Admin.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/admin/Views.py" beforeDir="false" afterPath="$PROJECT_DIR$/admin/Views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/app.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/controller/Product.py" beforeDir="false" afterPath="$PROJECT_DIR$/controller/Product.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/migrate.py" beforeDir="false" afterPath="$PROJECT_DIR$/migrate.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/migrations/env.py" beforeDir="false" afterPath="$PROJECT_DIR$/migrations/env.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/migrations/versions/6baedd31adb5_.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/migrations/versions/84fd031f547a_.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/migrations/versions/977e7a6a5814_.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/migrations/versions/ab20840f637b_.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/migrations/versions/e7567e687eb6_.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/Category.py" beforeDir="false" afterPath="$PROJECT_DIR$/model/Category.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/Product.py" beforeDir="false" afterPath="$PROJECT_DIR$/model/Product.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/User.py" beforeDir="false" afterPath="$PROJECT_DIR$/model/User.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/css/custom.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/login.html" afterDir="false" />
-    </list>
+    <list default="true" id="9189e4c1-48e6-4397-a1fd-6d04df143085" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -55,8 +37,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/templates/home_admin.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="291">
-              <caret line="46" column="13" selection-start-line="46" selection-start-column="13" selection-end-line="46" selection-end-column="13" />
+            <state relative-caret-position="45">
+              <caret line="3" lean-forward="true" selection-start-line="3" selection-end-line="38" />
             </state>
           </provider>
         </entry>
@@ -604,14 +586,13 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="25" width="1366" height="686" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info id="Favorites" side_tool="true" />
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.15636635" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.15636635" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="bottom" id="Version Control" />
       <window_info anchor="bottom" id="Python Console" />
-      <window_info anchor="bottom" id="Terminal" visible="true" weight="0.29802513" />
+      <window_info active="true" anchor="bottom" id="Terminal" visible="true" weight="0.29802513" />
       <window_info anchor="bottom" id="Event Log" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32854578" />
@@ -749,8 +730,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/templates/home_admin.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="291">
-          <caret line="46" column="13" selection-start-line="46" selection-start-column="13" selection-end-line="46" selection-end-column="13" />
+        <state relative-caret-position="45">
+          <caret line="3" lean-forward="true" selection-start-line="3" selection-end-line="38" />
         </state>
       </provider>
     </entry>

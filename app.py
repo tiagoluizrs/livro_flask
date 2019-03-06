@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from flask import Flask, request, redirect, render_template
+from flask import Flask, request, redirect, render_template, Response, json
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 
@@ -30,6 +30,13 @@ def create_app(config_name):
     Bootstrap(app)
 
     db.init_app(app)
+
+    @app.after_request
+    def after_request(response):
+        response.headers.add('Access-Control-Allow-Origin', '*')
+        response.headers.add('Access-Control-Allow-Headers', 'Content-Type')
+        response.headers.add('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS')
+        return response
 
     @app.route('/')
     def index():
@@ -70,37 +77,32 @@ def create_app(config_name):
         else:
             return render_template('recovery.html', data={'status': 500, 'msg': 'Erro ao recuperar senha'.decode('utf-8')})
 
-    @app.route('/product/', methods=['GET'])
-    def list_products():
+    @app.route('/products/', methods=['GET'])
+    @app.route('/products/<limit>', methods=['GET'])
+    def get_products(limit=None):
+        header = {}
+        
         product = ProductController()
-        res = product.list_products()
-        print(res)
-        return 'Oi'
+        response = product.get_products(limit=limit)
+        return Response(json.dumps(response, ensure_ascii=False), mimetype='application/json'), response['status'], header
 
-    @app.route('/product/', methods=['POST'])
-    def save_products():
+    @app.route('/product/<product_id>', methods=['GET'])
+    def get_product(product_id):
+        header = {}
+        
         product = ProductController()
+        response = product.get_product_by_id(product_id = product_id)
 
-        result = product.save_product(request.form)
+        return Response(json.dumps(response, ensure_ascii=False), mimetype='application/json'), response['status'], header
 
-        if result:
-            message = "Inserido"
-        else:
-            message = "Não inserido"
+    @app.route('/user/<user_id>', methods=['GET'])
+    def get_user_profile(user_id):
+        header = {}
 
-        return message
+        user = UserController()
+        response = user.get_user_by_id(user_id=user_id)
 
-    @app.route('/product/', methods=['PUT'])
-    def update_products():
-        product = ProductController()
+        return Response(json.dumps(response, ensure_ascii=False), mimetype='application/json'), response['status'], header
 
-        result = product.update_product(request.form)
-
-        if result:
-            message = "Editado"
-        else:
-            message = "Não Editado"
-
-        return message
 
     return app
