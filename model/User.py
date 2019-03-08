@@ -4,27 +4,29 @@ from sqlalchemy import func
 from sqlalchemy.orm import relationship
 from config import app_active, app_config
 from passlib.hash import pbkdf2_sha256
+#Capítulo 10
+from flask_login import UserMixin
 
 from model.Role import Role
 
 config = app_config[app_active]
 db = SQLAlchemy(config.APP)
 
-class User(db.Model):
+#Capítulo 10
+class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(40), unique=True, nullable=False)
     email = db.Column(db.String(120), unique=True, nullable=False)
     password = db.Column(db.String(200), nullable=False)
     date_created = db.Column(db.DateTime(6), default=db.func.current_timestamp(), nullable=False)
     last_update = db.Column(db.DateTime(6), onupdate=db.func.current_timestamp(), nullable=True)
-    status = db.Column(db.Boolean(), default=1, nullable=True)
+    active = db.Column(db.Boolean(), default=1, nullable=True)
     role = db.Column(db.Integer, db.ForeignKey(Role.id), nullable=False)
     funcao = relationship(Role)
     
     def __repr__(self):
         return '%s - %s' % (self.id, self.username)
 
-    # Não adicionar no capítulo 9
     def get_user_by_email(self):
         try:
             res = db.session.query(User).filter(User.email==self.email).first()
@@ -82,13 +84,13 @@ class User(db.Model):
 
     def hash_password(self, password):
         try:
-            return self.pbkdf2_sha256.hash(password)
+            return pbkdf2_sha256.hash(password)
         except Exception as e:
             print("Erro ao criptografar senha %s" % e)
 
-    def verify_password(self, password, password_database):
+    def verify_password(self, password_no_hash, password_database):
         try:
-            return pbkdf2_sha256.verify(password, password_database)
+            return pbkdf2_sha256.verify(password_no_hash, password_database)
         except ValueError:
             return False
 

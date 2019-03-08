@@ -3,7 +3,7 @@
 
 {% block styles %}
 {{super()}}
-<link rel="stylesheet" href="{{url_for('.static', filename='css/custom.css')}}">
+<link rel="stylesheet" href="{{url_for('.static', filename='css/login.css')}}">
 {% endblock %}
 
 {% block content %}
@@ -13,13 +13,31 @@
 	<h2>{{message}}</h2>
 	<div class="checkbox mb-3">
         <label for="inputEmail" class="sr-only">E-mail</label>
-        <input type="email" id="inputEmail" class="form-control" placeholder="E-mail" required autofocus>
+        <input name="email" type="email" id="inputEmail" class="form-control" placeholder="E-mail" required autofocus>
     </div>
     <div class="checkbox mb-3">
 	    <label for="inputPassword" class="sr-only">Senha</label>
-		<input type="password" id="inputPassword" class="form-control" placeholder="Senha" required>
+		<input name="password" type="password" id="inputPassword" class="form-control" placeholder="Senha" required>
 	</div>
 	<button class="btn btn-lg btn-primary btn-block" type="submit">Entrar</button>
+	<!-- Capítulo 10 -->
+	{% if data.status == 401 %}
+		{% if data.type == 1 %}
+		<div class="alert alert-danger" role="alert">
+			{{data.msg}}
+		</div>
+		{% elif data.type == 2 %}
+		<div class="alert alert-warning" role="alert">
+			{{data.msg}}
+		</div>
+  	{% endif %}
+	{% elif data.status == 200 %}
+		{% if data.type == 3 %}
+		<div class="alert alert-success" role="alert">
+			{{data.msg}}
+		</div>
+  	{% endif %}
+  {% endif %}
   </form>
 {% endblock %}
 
