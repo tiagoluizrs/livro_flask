@@ -64,8 +64,8 @@ class UserView(ModelView):
         'password': 'Senha do usuário no sistema',
     }
 
-    column_exclude_list = ['password']
-    form_excluded_columns = ['last_update']
+    column_exclude_list = ['password', 'recovery_code']
+    form_excluded_columns = ['last_update', 'recovery_code']
 
     form_widget_args = {
         'password': {

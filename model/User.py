@@ -4,7 +4,6 @@ from sqlalchemy import func
 from sqlalchemy.orm import relationship
 from config import app_active, app_config
 from passlib.hash import pbkdf2_sha256
-#Capítulo 10
 from flask_login import UserMixin
 
 from model.Role import Role
@@ -12,7 +11,6 @@ from model.Role import Role
 config = app_config[app_active]
 db = SQLAlchemy(config.APP)
 
-#Capítulo 10
 class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(40), unique=True, nullable=False)
@@ -20,6 +18,7 @@ class User(db.Model, UserMixin):
     password = db.Column(db.String(200), nullable=False)
     date_created = db.Column(db.DateTime(6), default=db.func.current_timestamp(), nullable=False)
     last_update = db.Column(db.DateTime(6), onupdate=db.func.current_timestamp(), nullable=True)
+    recovery_code = db.Column(db.String(200), nullable=True)
     active = db.Column(db.Boolean(), default=1, nullable=True)
     role = db.Column(db.Integer, db.ForeignKey(Role.id), nullable=False)
     funcao = relationship(Role)
@@ -31,7 +30,7 @@ class User(db.Model, UserMixin):
         try:
             res = db.session.query(User).filter(User.email==self.email).first()
         except Exception as e:
-            res = []
+            res = None
             print(e)
         finally:
             db.session.close()
@@ -41,7 +40,17 @@ class User(db.Model, UserMixin):
         try:
             res = db.session.query(User).filter(User.id==self.id).first()
         except Exception as e:
-            res = []
+            res = None
+            print(e)
+        finally:
+            db.session.close()
+            return res
+
+    def get_user_by_recovery(self):
+        try:
+            res = db.session.query(User).filter(User.recovery_code==self.recovery_code).first()
+        except Exception as e:
+            res = None
             print(e)
         finally:
             db.session.close()
@@ -69,6 +78,7 @@ class User(db.Model, UserMixin):
             db.session.commit()
             return True
         except Exception as e:
+            print(e)
             db.session.rollback()
             return False
 
