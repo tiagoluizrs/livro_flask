@@ -1,33 +1,32 @@
-import sendgrid
-from sendgrid.helpers.mail import *
+import os
+from sendgrid import SendGridAPIClient
+from sendgrid.helpers.mail import Mail
 
 from config import app_active, app_config
 config = app_config[app_active]
 
 class EmailController():
-    def __init__(self):
-        self.content_type = {
-            "text": "text/plain",
-            "html": "text/html"
-        }
-
-    def send_email(self, t_email, subject, content_text, f_email="contato@site.com.br", c_type='text'):
+    def send_email(self, t_email, subject, content_text, f_email="contato@site.com.br"):
+        message = Mail(
+            from_email=f_email,
+            to_emails=t_email,
+            subject=subject,
+            html_content=content_text)
         try:
-            sg = sendgrid.SendGridAPIClient(apikey=config.SENDGRID_API_KEY)
-            from_email = Email(f_email)
-            to_email = Email(t_email)
+            sg = SendGridAPIClient(config.SENDGRID_API_KEY)
+            response = sg.send(message)
             
-            content = Content(self.content_type[c_type], content_text)
-            mail = Mail(from_email, subject, to_email, content)
-            response = sg.client.mail.send.post(request_body=mail.get())
-            
+            print(response.status_code)
+            print(response.body)
+            print(response.headers)
+
             return {
                 'status_code' : response.status_code,
                 'body' : response.body,
                 'headers' : response.headers
             }
         except Exception as e:
-            print(e)
+            print(e.message)
             raise e
         
         
