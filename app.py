@@ -187,7 +187,7 @@ def create_app(config_name):
                     'username': result.username,
                     'email': result.email,
                     'date_created': result.date_created,
-                    'active': result.status
+                    'active': result.active
                 }
 
                 header = {
