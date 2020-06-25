@@ -1,0 +1,38 @@
+{% extends "bootstrap/base.html" %}
+{% block title %}Login{% endblock %}
+
+{% block styles %}
+{{super()}}
+<link rel="stylesheet" href="{{url_for('.static', filename='css/login.css')}}">
+{% endblock %}
+
+{% block content %}
+  <form class="form-signin text-center" action="/recovery-password/" method="post">
+	<img class="mb-4" src="https://getbootstrap.com/docs/4.0/assets/brand/bootstrap-solid.svg" alt="" width="72" height="72">
+	<h1 class="h3 mb-3 font-weight-normal">Solicitar nova senha</h1>
+    <div class="checkbox mb-3">
+        <label for="inputEmail" class="sr-only">E-mail</label>
+        <input name="email" type="email" id="inputEmail" class="form-control" placeholder="E-mail" required autofocus>
+    </div>
+	<button class="btn btn-lg btn-primary btn-block" type="submit">Enviar solicitação</button>
+	<!-- Capítulo 10 -->
+	{% if data.status == 200 or data.status == 202 %}
+        {% if data.type == 3 %}
+        <div class="alert alert-success" role="alert">
+            {{data.msg}}
+        </div>
+        {% endif %}
+	{% else %}
+        {% if data.type == 1 %}
+        <div class="alert alert-danger" role="alert">
+            {{data.msg}}
+        </div>
+        {% endif %}
+    {% endif %}
+  </form>
+{% endblock %}
+
+{% block scripts %}
+{{super()}}
+<script src="{{url_for('.static', filename='js/custom.js')}}"></script>
+{% endblock %}

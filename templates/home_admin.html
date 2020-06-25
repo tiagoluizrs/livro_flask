@@ -1,0 +1,68 @@
+{% extends admin_base_template %}
+{% block body %}
+
+<div class="row mb-3">
+    <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-xs-12 py-2">
+        <div class="card bg-success text-white h-100">
+            <div class="card-body bg-success">
+                <div class="rotate">
+                    <i class="fa fa-user fa-4x"></i>
+                </div>
+                <h6 class="text-uppercase">Usuários</h6>
+                <h1 class="display-4">{{report.users}}</h1>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-xs-12 py-2">
+        <div class="card text-white bg-info h-100">
+            <div class="card-body bg-info">
+                <div class="rotate">
+                    <i class="fa fa-list fa-4x"></i>
+                </div>
+                <h6 class="text-uppercase">Categorias</h6>
+                <h1 class="display-4">{{report.categories}}</h1>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-xs-12 py-2">
+        <div class="card text-white bg-warning h-100">
+            <div class="card-body bg-warning">
+                <div class="rotate">
+                    <i class="fa fa-briefcase fa-4x"></i>
+                </div>
+                <h6 class="text-uppercase">Produtos</h6>
+                <h1 class="display-4">{{report.products}}</h1>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <h3>Últimos produtos</h3>
+        <table class="table table-striped table-hover ">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Nome</th>
+              <th>Preço</th>
+              <th>Quantidade</th>
+              <th>Data de Criação</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for product in last_products %}
+                <tr>
+                  <td>{{product.id}}</td>
+                  <td>{{product.name}}</td>
+                  <td>{{product.price}}</td>
+                  <td>{{product.qtd}}</td>
+                  <td>{{product.date_created}}</td>
+                </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+    </div>
+</div>
+
+{% endblock %}

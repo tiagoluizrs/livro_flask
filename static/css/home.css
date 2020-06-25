@@ -1,0 +1,31 @@
+body, html {
+  height:100%;
+}
+.py-2{
+    overflow: hidden;
+}
+.card {
+    overflow: hidden;
+    padding: 0 10px;
+    box-sizing: border-box;
+    border-radius: 5px;
+}
+.card-body .rotate {
+    z-index: 8;
+    float: right;
+    height: 100%;
+}
+
+.card-body .rotate i {
+    color: rgba(20, 20, 20, 0.15);
+    position: absolute;
+    left: auto;
+    right: 21px;
+    bottom: 0px;
+    display: block;
+    -webkit-transform: rotate(-44deg);
+    -moz-transform: rotate(-44deg);
+    -o-transform: rotate(-44deg);
+    -ms-transform: rotate(-44deg);
+    transform: rotate(-44deg);
+}
