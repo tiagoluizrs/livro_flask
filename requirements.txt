@@ -15,7 +15,7 @@ Flask-MySQLdb==0.2.0
 Flask-Script==2.0.6
 Flask-SQLAlchemy==2.4.0
 ipdb==0.12
-ipython==7.6.0
+ipython==7.16.3
 ipython-genutils==0.2.0
 itsdangerous==1.1.0
 jedi==0.14.0
