@@ -1,32 +1,24 @@
-import os
-from sendgrid import SendGridAPIClient
-from sendgrid.helpers.mail import Mail
+from flask_mail import Message
 
+from extensions import mail
 from config import app_active, app_config
 config = app_config[app_active]
 
 class EmailController():
-    def send_email(self, t_email, subject, content_text, f_email="contato@site.com.br"):
-        message = Mail(
-            from_email=f_email,
-            to_emails=t_email,
-            subject=subject,
-            html_content=content_text)
+    def send_email(self, t_email, subject, content_text, f_email=None):
         try:
-            sg = SendGridAPIClient(config.SENDGRID_API_KEY)
-            response = sg.send(message)
-            
-            print(response.status_code)
-            print(response.body)
-            print(response.headers)
+            message = Message(
+                subject=subject,
+                recipients=[t_email],
+                html=content_text,
+                sender=f_email or config.MAIL_DEFAULT_SENDER
+            )
+            mail.send(message)
 
             return {
-                'status_code' : response.status_code,
-                'body' : response.body,
-                'headers' : response.headers
+                'status_code': 200,
+                'body': 'E-mail enviado com sucesso'
             }
         except Exception as e:
-            print(e.message)
+            print(e)
             raise e
-        
-        

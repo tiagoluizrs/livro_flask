@@ -44,7 +44,6 @@ class UserController():
                 'id': user_id,
                 'username': username
             }, exp=5)
-            recovery_code = recovery_code.decode("utf-8")
             try:
                 self.user_model.id = res.id
                 res = self.user_model.update({
@@ -89,7 +88,8 @@ class UserController():
         self.user_model.id = user_id
 
         return self.user_model.update({
-            'password': self.user_model.password
+            'password': self.user_model.password,
+            'recovery_code': None
         })
 
     def get_user_by_id(self, user_id):    
@@ -110,16 +110,15 @@ class UserController():
             print(e)
             result = []
             status = 400
-        finally:
-            return {
-                'result': result,
-                'status': status
-            }
+        return {
+            'result': result,
+            'status': status
+        }
 
     def verify_auth_token(self, access_token):
         status = 401    
         try:
-            jwt.decode(access_token, config.SECRET, algorithm='HS256')
+            jwt.decode(access_token, config.SECRET, algorithms=['HS256'])
             message = 'Token válido'
             status = 200
         except jwt.ExpiredSignatureError:

@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 from flask_admin import AdminIndexView, expose
 from flask_admin.contrib.sqla import ModelView
-# Capítulo 10
 from flask_login import current_user
 from flask import redirect
 
@@ -14,7 +13,7 @@ from model.Product import Product
 config = app_config[app_active]
 
 class HomeView(AdminIndexView):
-    extra_css = [config.URL_MAIN + 'static/css/home.css','https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css']
+    extra_css = ['/static/css/home.css']
 
     @expose('/')
     def index(self):
@@ -28,9 +27,9 @@ class HomeView(AdminIndexView):
         last_products = product_model.get_last_products()
 
         return self.render('home_admin.html', report={
-            'users': users[0],
-            'categories': categories[0],
-            'products': products[0]
+            'users': 0 if not users else users[0],
+            'categories': 0 if not categories else categories[0],
+            'products': 0 if not products else products[0]
         }, last_products=last_products)
 
 
@@ -48,9 +47,9 @@ class UserView(ModelView):
         'funcao': 'Função',
         'username': 'Nome de usuário',
         'email': 'E-mail',
-        'date_created': 'Data de Criação',
+        'date_created': 'Data de criação',
         'last_update': 'Última atualização',        
-        'active': 'Estado',
+        'active': 'Ativo',
         'password': 'Senha',
     }
 
@@ -58,7 +57,7 @@ class UserView(ModelView):
         'funcao': 'Função no painel administrativo',
         'username': 'Nome de usuário no sistema',
         'email': 'E-mail do usuário no sistema',
-        'date_created': 'Data de Criação do usuário no sistema',
+        'date_created': 'Data de criação do usuário no sistema',
         'last_update': 'Última atualização desse usuário no sistema',        
         'active': 'Estado ativo ou inativo no sistema',
         'password': 'Senha do usuário no sistema',
@@ -82,11 +81,11 @@ class UserView(ModelView):
     can_export = True
     column_editable_list = ['username', 'email', 'funcao', 'active']
     column_sortable_list = ['username']
-    column_default_sort = [('username', True), ('date_created', True)]
+    column_default_sort = ('username', False)
     column_details_exclude_list = ['password', 'recovery_code']
     column_export_exclude_list = ['password', 'recovery_code']
 
-    export_types = ['json', 'yaml', 'csv', 'xls', 'df']
+    export_types = ['csv']
 
     def on_model_change(self, form, User, is_created):
         if 'password' in form:
@@ -95,14 +94,14 @@ class UserView(ModelView):
             else:
                 del form.password
 
-    # Capítulo 10
     def is_accessible(self):
-        role = current_user.role
-        if role == 1:
-            self.can_create = True
-            self.can_edit = True
-            self.can_delete = True
-            return current_user.is_authenticated
+        if current_user.is_authenticated:
+            role = current_user.role
+            if role == 1:
+                self.can_create = True
+                self.can_edit = True
+                self.can_delete = True
+                return current_user.is_authenticated
 
     def inaccessible_callback(self,name,**kwargs):
         if current_user.is_authenticated:
@@ -110,15 +109,15 @@ class UserView(ModelView):
         else:
             return redirect('/login')
 
-# Capítulo 10
 class RoleView(ModelView):
     def is_accessible(self):
-        role = current_user.role
-        if role == 1:
-            self.can_create = True
-            self.can_edit = True
-            self.can_delete = True
-            return current_user.is_authenticated
+        if current_user.is_authenticated:
+            role = current_user.role
+            if role == 1:
+                self.can_create = True
+                self.can_edit = True
+                self.can_delete = True
+                return current_user.is_authenticated
 
     def inaccessible_callback(self,name,**kwargs):
         if current_user.is_authenticated:
@@ -130,17 +129,18 @@ class CategoryView(ModelView):
     can_view_details = True
 
     def is_accessible(self):
-        role = current_user.role
-        if role == 1:
-            self.can_create = True
-            self.can_edit = True
-            self.can_delete = True
-            return current_user.is_authenticated
-        elif role == 2:
-            self.can_create = True
-            self.can_edit = True
-            self.can_delete = True
-            return current_user.is_authenticated
+        if current_user.is_authenticated:
+            role = current_user.role
+            if role == 1:
+                self.can_create = True
+                self.can_edit = True
+                self.can_delete = True
+                return current_user.is_authenticated
+            elif role == 2:
+                self.can_create = True
+                self.can_edit = True
+                self.can_delete = True
+                return current_user.is_authenticated
 
     def inaccessible_callback(self,name,**kwargs):
         if current_user.is_authenticated:
@@ -152,21 +152,22 @@ class ProductView(ModelView):
     can_view_details = True
     
     def is_accessible(self):
-        role = current_user.role
-        if role == 1:
-            self.can_create = True
-            self.can_edit = True
-            self.can_delete = True
-        elif role == 2:
-            self.can_create = True
-            self.can_edit = True
-            self.can_delete = True
-        elif role == 3:
-            self.can_create = True
-            self.can_edit = True
-            self.can_delete = False
+        if current_user.is_authenticated:
+            role = current_user.role
+            if role == 1:
+                self.can_create = True
+                self.can_edit = True
+                self.can_delete = True
+            elif role == 2:
+                self.can_create = True
+                self.can_edit = True
+                self.can_delete = True
+            elif role == 3:
+                self.can_create = True
+                self.can_edit = True
+                self.can_delete = False
 
-        return current_user.is_authenticated
+            return current_user.is_authenticated
 
     def inaccessible_callback(self,name,**kwargs):
         if current_user.is_authenticated:

@@ -1,15 +1,11 @@
 # -*- coding: utf-8 -*-
-from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import func
 from sqlalchemy.orm import relationship
-from config import app_active, app_config
 from passlib.hash import pbkdf2_sha256
 from flask_login import UserMixin
 
+from extensions import db
 from model.Role import Role
-
-config = app_config[app_active]
-db = SQLAlchemy(config.APP)
 
 class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
@@ -34,7 +30,7 @@ class User(db.Model, UserMixin):
             print(e)
         finally:
             db.session.close()
-            return res
+        return res
 
     def get_user_by_id(self):
         try:
@@ -44,7 +40,7 @@ class User(db.Model, UserMixin):
             print(e)
         finally:
             db.session.close()
-            return res
+        return res
 
     def get_user_by_recovery(self):
         try:
@@ -54,7 +50,7 @@ class User(db.Model, UserMixin):
             print(e)
         finally:
             db.session.close()
-            return res
+        return res
 
     def get_users(self):
         try:
@@ -112,4 +108,4 @@ class User(db.Model, UserMixin):
             print(e)
         finally:
             db.session.close()
-            return res
+        return res

@@ -1,2 +1,6 @@
 /venv
 venv
+venv_test
+.env
+__pycache__
+*.pyc
