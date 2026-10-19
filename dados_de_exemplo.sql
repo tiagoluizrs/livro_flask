@@ -1,5 +1,5 @@
 -- Dados de exemplo do livro Flask de A a Z.
--- Rode este arquivo depois do `flask db upgrade`, com as tabelas já criadas.
+-- Rode este arquivo depois do `alembic upgrade head`, com as tabelas já criadas.
 -- Todos os usuários usam a senha 123456.
 
 SET NAMES utf8mb4;

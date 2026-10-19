@@ -5,7 +5,7 @@ config = app_config[app_active]
 config.APP = create_app(app_active)
 
 # alias usado pelo comando `flask` (CLI) para descobrir a aplicação,
-# por exemplo nos comandos `flask db migrate` e `flask db upgrade`.
+# por exemplo no comando `flask run`.
 app = config.APP
 
 if __name__ == '__main__':

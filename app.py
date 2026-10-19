@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 from flask import Flask
-from flask_migrate import Migrate
 from flask_login import LoginManager
 
 # config import
@@ -12,7 +11,7 @@ from extensions import db, mail
 # controllers
 from controller.User import UserController
 
-# Importação necessária apenas para o Flask-Migrate enxergar essa tabela
+# Importação necessária apenas para o Alembic enxergar essa tabela
 from model.EventoPedido import EventoPedido
 
 from admin.Admin import start_views
@@ -36,7 +35,6 @@ def create_app(config_name):
     app.config['SQLALCHEMY_DATABASE_URI'] = config.SQLALCHEMY_DATABASE_URI
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
     db.init_app(app)
-    migrate = Migrate(app, db)
     mail.init_app(app)
     start_views(app, db)
     Bootstrap(app)

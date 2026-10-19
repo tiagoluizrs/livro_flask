@@ -8,7 +8,7 @@ O projeto foi desenvolvido com o Python 3.15 (as versões das `libs` do `require
 
 ## Dados de exemplo
 
-O arquivo `dados_de_exemplo.sql` popula o banco com funções, uma categoria, produtos e os usuários a seguir. Ele contém apenas os dados, então deve ser importado depois do `flask db upgrade`. Todos os usuários usam a senha `123456`:
+O arquivo `dados_de_exemplo.sql` popula o banco com funções, uma categoria, produtos e os usuários a seguir. Ele contém apenas os dados, então deve ser importado depois de aplicar as migrações (`alembic upgrade head`). Todos os usuários usam a senha `123456`:
 
 | E-mail | Função |
 |---|---|
