@@ -23,7 +23,7 @@ protobuf==7.36.2
 pycparser==3.11
 PyJWT==2.15.1
 python-dotenv==1.2.4
-setuptools==84.0.0
+setuptools==84.1.0
 SQLAlchemy==2.1.4
 typing_extensions==4.16.0
 visitor==0.1.3
