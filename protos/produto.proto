@@ -1,0 +1,20 @@
+syntax = "proto3";
+
+package produto;
+
+// Serviço que o livro_flask disponibiliza para consulta de produtos
+service ProdutoService {
+  rpc GetProduto (ProdutoRequest) returns (ProdutoResponse);
+}
+
+message ProdutoRequest {
+  int32 id = 1;
+}
+
+message ProdutoResponse {
+  int32 id = 1;
+  string name = 2;
+  string description = 3;
+  int32 qtd = 4;
+  string price = 5;
+}
